@@ -1,5 +1,6 @@
 ---
-title: "Using R in field sampling -- BIO 104 Lab A1. Species Diversity Report"
+title: "Using R in field sampling
+BIO 104 Lab A1. Species Diversity Report"
 output:
   pdf_document: default
   html_document: default
@@ -17,15 +18,30 @@ knitr::opts_chunk$set(echo = TRUE)
 * Plot diversity data as a scatterplot and a boxplot
 * Plot certain parts of your data
 
+## Lab 1 Report Submission
+
+1. Individual Summary Table for your group data
+2. Boxplot of diversity data (created in Step 4)
+3. Boxplots of biome data (Homework Step 6)
+4. Summary of changes in diversity
+
 
 ## 1. Getting Started
 
 You will be using **R** for data analysis this semester. **R** is a versatile, free data handling software widely-used by scientists. Here are some great reasons to use **R**:
 
-* You write down the instructions (code) to do your data analysis so you will remember how it's done
-* Instantly rerun your analysis
-* Make beautiful plots
-* Analyze your data in every possible way
+* Organize data
+* Analyze data
+* Graph data
+
+Here is some basic vocabulary you will need when using **R**.
+* **R script:** the lines of code that you are writing (filename.R)
+* **Variable:** a way to store your data for use in the R script
+* **R project:** your R script, any variables you have created, and your current R environment (filename.Rproj)
+* **Package:** a set of functions/codes that you can load into your script (examples - gsheet, ggplot2)
+* **Function:** an action or calculation that you perform on your variables (examples - subset, mean, ggplot, library)
+* **Comment:** does not run as code, starts with #
+
 
 More great information on R is at [http://www.datacarpentry.org/R-ecology-lesson/00-before-we-start.html#why_learn_r](http://www.datacarpentry.org/R-ecology-lesson/00-before-we-start.html#why_learn_r)
 
@@ -42,7 +58,7 @@ You will get your login information from your TA. Your password is the same as u
     + `New Directory` and `Empty Project` 
     + `Directory name:  FieldSampling`
     + Leave the Subdirectory as the default:  ~
-![](RStudioFile.png)
+    ![](RStudioFile.png)
                                   
 * Select from top left corner:  
     + `File` - `New File` - `R Script`
@@ -56,31 +72,35 @@ an *environment* that show what data you have, and
 a *file* window.
 
 
-## 2. How to get your data into R so you can use it
+## 2. How to get your data into R
 
-Last week you calculated the diversity index for each plot within each of four site types. A diversity index allows you to understand the variation in diversity among site types.
-The following lines of code will allow you to get your data (the class data about the diversity of each plot) into R directly from Google Sheets.
+Last week you calculated the diversity index for each plot within each of four site types. A diversity index allows you to understand the variation in diversity among site types. The following lines of code will allow you to get your data (the class data about the diversity of each plot) into R directly from Google Sheets.
 
 ### 2a. Make the tools you need available in R.
 
-The tools you need are found in "packages". Packages are like books from the library; packages are pre-written bundles of code that can perform the tasks we want. 
+The tools you need are found in "packages". Packages are like books from the library: packages are pre-written bundles of code that can perform the tasks we want. They contain functions and commands to perform analyses.
 
 ```{r }
 library(gsheet)
 ```
 
-**Type the code (from the grey boxes) into the SCRIPT window of RStudio. Run each line using the Run button (top right of the SCRIPT window in RStudio)** ![](RStudioRun.png)
+**Type the code (from the grey boxes) into the SCRIPT window of RStudio. Run each line using the Run button (top right of the SCRIPT window in RStudio)** 
+
+![](RStudioRun.png)
 
 ### 2b. Tell R where to get your data.
 
-Assign the web address of the data (the "https" address) to a variable (here our variable is called "url" for "uniform resource locator". This is the term for an address on the web (you can name your variable anything though). You assign a number or word or data to a variable using `<-` (which makes something that looks like an arrow). The variable name goes on the left of the arrow and the information goes on the right. 
+Assign the web address of the data (the "https" address) to a variable `url`. You assign a number or word or data to a variable using `<-` (which makes something that looks like an arrow). The variable name goes on the left of the arrow and the information goes on the right. Use the link for your section.
+
+Section 1: https://docs.google.com/spreadsheets/d/1Y_mQd_2oqeh-c8tIrQQRM86jqh7GXOTcjB6RdyfUukg/edit
+Section 2: https://docs.google.com/spreadsheets/d/1ZQ4deueQIPo3suyaQIiL8ocKMvmkQHPbo7dTm1DB1HE/edit#gid=0
+Section 3: https://docs.google.com/spreadsheets/d/1BgfwFZwPElpkLpaGtJjUjwMJ7PBlX7LIQa6TqEuBSyg/edit#gid=712544975
+Section 4: https://docs.google.com/spreadsheets/d/15NNkz5qpgL606SjsUY0eLqh8XELc2O22-TjVYbZ5cNk/edit#gid=3539127
+Section 5: https://docs.google.com/spreadsheets/d/1OP_efBrd4wDyurSWPX_PYRiH6I5tRbiVFn3xlUa6b6g/edit#gid=375935988
+Section 6: https://docs.google.com/spreadsheets/d/1IuZkWdoF30zrZvjNTinvM_NguzT8EcE1b8PK0iTXaBg/edit#gid=0
 
 ```{r echo=FALSE}
-url <- 'https://docs.google.com/spreadsheets/d/1_FtL2E935fvANST8JMP50QVQzIVoaZgXyNpLZnVRW-k'
-```
-
-```{r eval=FALSE}
-url <- 'https://docs.google.com/spreadsheets/d/15_Oba64U8UsV9CdqrBYNSTTS5YpTARmRrBKDiQwELlk'
+url <- 'https://docs.google.com/spreadsheets/d/14tqUEo3eupHv6LFBA4zyzY97HCwxwGWJyBecL0oVkiY/edit#gid=0'
 ```
 
 ### 2c. Assign the data to a variable
@@ -92,8 +112,8 @@ diversitydata <- gsheet2tbl(url)
 ```
 
 * you will need to run each line separately (put the cursor on each line and click run)
-* the line was run correctly if you get the prompt (`>`) in the console window at the bottom of RStudio
-* view your data by clicking on the item in the Data window on the right side (my data is called `diversitydata` - yours may be named something else) - this will open a new tab above so you can look at the data
+* the line was run correctly if you get the prompt (`>`) in the R console at the bottom right of RStudio
+* view your data by clicking on the item in the Data window on the right side. This will open a new tab above so you can look at the data
 
 ## 3. Keep track of what your commands do
 
@@ -106,12 +126,15 @@ library(gsheet)
 
 #assign the website address for the data to a variable using an arrow <-
 # "variable" <- "website address for data"
-url<-'https://docs.google.com/spreadsheets/d/15_Oba64U8UsV9CdqrBYNSTTS5YpTARmRrBKDiQwELlk'
+url<-'https://docs.google.com/spreadsheets/d/14tqUEo3eupHv6LFBA4zyzY97HCwxwGWJyBecL0oVkiY/edit#gid=0'
 
 #load the data from google sheets
 # "variable" <- "command to work on" (data from last line)
 diversitydata <- gsheet2tbl(url)
 ```
+
+**SAVE your work**. Save your code by clicking `File > Save`. **Name your file Lab1_YourName.R.** Your work will save to the server that we are using for this lab.  You will be able to access your work on this server from other computers, as long as you know the web address and your username and password.
+
 
 **Use the # symbol to add comments to your script as you enter the commands below**
 
@@ -129,15 +152,13 @@ library(ggplot2)
 
 * use the command `ggplot`
     + enter the name of the variable containing your data
-    + `aes` specifies the "aesthetics" of the plot (i.e. how it looks), including the x and y variables
+    + `aes` specifies the what the plot will look like ("aesthetics"), including the x and y variables
     + specify the variable names based on viewing the data
 * run this plot command
 
 ```{r }
 ggplot(diversitydata, aes(x=SiteType,y=Diversity))
 ```
-**SAVE your work**. Save your code by clicking `File > Save`. **Name your file Lab1_YourName.rproj.** Your work will save to the server that we are using for this lab.  You will be able to access your work on this server from other computers, as long as you know the web address and your username and password.
-
 
 ### 4c. Add data points to your plot
 
@@ -146,11 +167,10 @@ ggplot(diversitydata, aes(x=SiteType,y=Diversity))
 
 ```{r }
 #insert comment here
-ggplot(diversitydata, aes(x=SiteType,y=Diversity))+
-  geom_point()
+ggplot(diversitydata, aes(x=SiteType,y=Diversity)) + geom_point()
 ```
 
-**Add real comments to your script**
+**Remember to add real comments to your script**
 
 ### 4d. Add a boxplot on top of your plot
 
@@ -161,7 +181,7 @@ ggplot(diversitydata, aes(x=SiteType,y=Diversity))+
   
 * add a boxplot using `geom_boxplot()`
 * put a `+` between the `geom_point()` command and `geom_boxplot()`
-* note the `+` must come at the end of a line or the command will terminate and not plot another layer
+* the `+` must come at the end of a line or the command will terminate and not plot another layer
 
 ```{r }
 #insert comment here
@@ -174,84 +194,86 @@ ggplot(diversitydata, aes(x=SiteType,y=Diversity))+
 
 * in order to see both the box and the points plot the box first then the point layer on top
   + note: the order of the plotting instructions specifies how the plot is made - i.e. first the base, then the points, then the box covering the points
-* plot just the boxplot as this is the typical way to visualize the data
 
 
 ## 5. Edit your boxplots
 
 ### 5a. Reorder data on the X-axis
 
-If you want to make particular comparisons, such as between mowed sites, you might want to have your data in a particular order.
+If you want to make particular comparisons (like Sunny Mowed vs. Shady Mowed) you need to reorder your data.
 
-* plot the two mowed sites on the left and the two unmowed sides on the right side of the plot
-* `scale_x_discrete` allows you to change all the information on the x axis
-  + limits specifies the range of data on the x axis - since the data are categorical not continuous (e.g. from 1-10) you put the items in a list
+* Plot the two mowed sites on the left and the two wild sides on the right side of the plot
+* Use the `scale_x_discrete` command to change all the information on the x axis
+* `limits` tells R what data you want to put on the x-axis
+* `c()` puts this data into a list.
 
 ```{r }
 #insert comment here
 ggplot(diversitydata, aes(x=SiteType,y=Diversity))+
   geom_boxplot()+
-  scale_x_discrete(limits=c("SuM", "ShM", "SuNM", "ShNM"))
+  scale_x_discrete(limits=c("SuM", "ShM", "SuW", "ShW"))
 ```
 
 
 ### 5b. Add labels to your plot
 
-* use `scale_x_discrete` to relabel the category names to something more descriptive and to specify the overall x axis name
+Use `scale_x_discrete` to label your axes correctly.
 
 ```{r }
 ggplot(diversitydata, aes(x=SiteType,y=Diversity))+
   geom_boxplot()+
-  scale_x_discrete(limits=c("SuM", "ShM", "SuNM", "ShNM"), 
-                   labels=c("SuM" = "Sun Mow", "ShM" = "Shade Mow",
-                            "SuNM" = "Sun Not Mow", 
-                            "ShNM" = "Shade No Mow"), 
+  scale_x_discrete(limits=c("SuM", "ShM", "SuW", "ShW"), 
+                   labels=c("SuM" = "Sunny Mowed", "ShM" = "Shade Mowed",
+                            "SuW" = "Sunny Wild", 
+                            "ShW" = "Shady Wild"), 
                    name ="Conditions at site")
-
 ```
 
 ### 5c. Save your boxplot as an image
 
 * Click on Plots > Save as Image...
-* Name your file and click save.
+* Name your file and click Save.
 
 
 ### 5d. Look at a subset of data
 
-If you want to show only data from the two sunny sites, then make a new variable (here called 'SunnyOnly') containing these data
+If you want to only show data from the two sunny sites, then make a new variable containing these data
 
-* First load the `dplyr` library to provide a method of filtering the data.
+* First load the `dplyr` library, which contains a filtering function.
 
 ```{r, warning=FALSE,message=FALSE }
 library(dplyr)
 ```
 
-* Then `filter` the data where the value in the SiteType column is either SuNM or SuM (the vertical bar indicates '')
+* Then `filter` the data to include SiteTypes SuW or SuM (the vertical bar means "and")
 
 ```{r }
-SunnyOnly <- filter(diversitydata,SiteType=="SuNM" | SiteType=="SuM")
+SunnyOnly <- filter(diversitydata,SiteType=="SuW" | SiteType=="SuM")
 ```
 
-* Now plot this new dataset
+* Now plot this new dataset using boxplots.
 
 ```{r }
 ggplot(SunnyOnly, aes(x=SiteType, y=Diversity)) +
   geom_boxplot()+
-  scale_x_discrete(limits=c("SuM", "SuNM"),
-                   labels=c("SuM" = "Sun Mow", "SuNM" = "Sun No Mow"), 
+  scale_x_discrete(limits=c("SuM", "SuW"),
+                   labels=c("SuM" = "Sunny Mowed", "SuW" = "Sunny Wild"), 
                    name ="Conditions at site")
 ```
 **Turn in this final boxplot of the data.**
-**Turn in your diversity summary table.**
 
 ## 6. Homework Assignment
 
+### Part 1.
+* Subset your diversity data for just the shady sites. Make a boxplot like you did in Step 5d.
+* Turn in your boxplots from both sites.
+* Write a summary to compare the sunny and shady sites. Which has a higher diversity? Why? (2-3 sentences)
+* Make sure you include your summary tables.
+
+### Part 2.
 * Make a boxplot comparing diversity among terrestrial biomes of the United States.
 * Data are available at https://docs.google.com/spreadsheets/d/1KAur7rjQtw3zN1bEQR_xXr0JRS3yn1nnvdrzQu6gWaw 
-* Create a new R script
-* Load the libraries
-* Load your data
-* Make a boxplot similar to the Diversity index plot you made in class
-* Select three biomes and make a Diversity index boxplot for just those biomes.
-
-**Write a two sentence statement describing differences in diversity among the states you selected.**
+* Make a boxplot like you did in Step 4.
+* Select three states and make a Diversity index boxplot for just those states like you did in Step 5d and Part 1.
+* Write a summary describing differences in diversity among the states you selected (2-3 sentences).
+* Make sure you include your summary tables.
