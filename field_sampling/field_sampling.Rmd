@@ -1,10 +1,9 @@
 ---
-title: "Using R in field sampling
-BIO 104 Lab A1. Species Diversity Report"
+title: "Using R in field sampling BIO 104 Lab A1. Species Diversity Report"
 output:
+  word_document: default
   pdf_document: default
   html_document: default
-  word_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -20,10 +19,18 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Lab 1 Report Submission
 
-1. Individual Summary Table for your group data
-2. Boxplot of diversity data (created in Step 4)
-3. Boxplots of biome data (Homework Step 6)
-4. Summary of changes in diversity
+**Part 1. Done in Lab**
+
+1. Individual Summary Table for your class data
+2. Boxplot of Sunny diversity data (created in Step 5d)
+3. Boxplot of Shady diversity data
+4. Summary of diversity differences
+
+**Part 2. Homework**
+
+1. Summary Table for State biome data
+2. Boxplot of biome data
+3. Boxplot of biome data for 3 states
 
 
 ## 1. Getting Started
@@ -93,11 +100,17 @@ library(gsheet)
 Assign the web address of the data (the "https" address) to a variable `url`. You assign a number or word or data to a variable using `<-` (which makes something that looks like an arrow). The variable name goes on the left of the arrow and the information goes on the right. Use the link for your section.
 
 Section 1: https://docs.google.com/spreadsheets/d/1Y_mQd_2oqeh-c8tIrQQRM86jqh7GXOTcjB6RdyfUukg/edit
+
 Section 2: https://docs.google.com/spreadsheets/d/1ZQ4deueQIPo3suyaQIiL8ocKMvmkQHPbo7dTm1DB1HE/edit#gid=0
+
 Section 3: https://docs.google.com/spreadsheets/d/1BgfwFZwPElpkLpaGtJjUjwMJ7PBlX7LIQa6TqEuBSyg/edit#gid=712544975
+
 Section 4: https://docs.google.com/spreadsheets/d/15NNkz5qpgL606SjsUY0eLqh8XELc2O22-TjVYbZ5cNk/edit#gid=3539127
+
 Section 5: https://docs.google.com/spreadsheets/d/1OP_efBrd4wDyurSWPX_PYRiH6I5tRbiVFn3xlUa6b6g/edit#gid=375935988
+
 Section 6: https://docs.google.com/spreadsheets/d/1IuZkWdoF30zrZvjNTinvM_NguzT8EcE1b8PK0iTXaBg/edit#gid=0
+
 
 ```{r echo=FALSE}
 url <- 'https://docs.google.com/spreadsheets/d/14tqUEo3eupHv6LFBA4zyzY97HCwxwGWJyBecL0oVkiY/edit#gid=0'
@@ -276,4 +289,3 @@ ggplot(SunnyOnly, aes(x=SiteType, y=Diversity)) +
 * Make a boxplot like you did in Step 4.
 * Select three states and make a Diversity index boxplot for just those states like you did in Step 5d and Part 1.
 * Write a summary describing differences in diversity among the states you selected (2-3 sentences).
-* Make sure you include your summary tables.
